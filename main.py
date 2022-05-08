@@ -1,13 +1,15 @@
 import discord
 import os
 import requests
-import json 
+import json
+import random
 from replit import db  
 
 "so can we talk for min ooohhooo"
 
 client = discord.Client()
 my_secret = os.environ['TOKEN']
+
 
 def tenki(): 
   response = ('api.openweathermap.org/data/2.5/weather?q={Portland}&appid={API key}')
@@ -22,7 +24,8 @@ def get_quote():
   quote = json_data
   return(quote)
 
-
+def games():
+  print()
 
 @client.event
 async def on_ready():
@@ -30,16 +33,24 @@ async def on_ready():
   await client.change_presence(activity=discord.Game(name="Final Fantasy VII Remake"))
 
   @client.event
-  async def on_message(message): 
+  async def on_message(message):
+    "using random number for stupid gif randomizer."
+    "this is so stupid" 
+    k = random.randint(0,50)
+    print(k)
+    
     if message.author == client.user:
       return
 
     if message.content.startswith('$hello'):
       await message.channel.send('Hello!')
     
-    if message.content.startswith('$cat'):
+    if message.content.startswith('$cat') and k > 25:
       await message.channel.send(file=discord.File('neko.gif'))
 
+    if message.content.startswith('$cat') and k < 25:
+      await message.channel.send(file=discord.File('neko1.gif'))
+  
     if str(message.author) in ["Shakespeare#1494"]:
       MYid = '<@!888925448954871868>'
       await message.channel.send('%s Treat me to some fat ass on god' % MYid)
