@@ -24,40 +24,41 @@ def get_quote():
   quote = json_data
   return(quote)
 
-def games():
-  print()
 
 @client.event
 async def on_ready():
   print('We have logged in as {0.user}'.format(client))
   await client.change_presence(activity=discord.Game(name="Final Fantasy VII Remake"))
 
-  @client.event
-  async def on_message(message):
-    "using random number for stupid gif randomizer."
-    "this is so stupid" 
-    k = random.randint(0,50)
-    print(k)
-    
-    if message.author == client.user:
-      return
+@client.event
+async def on_message(message):
+  "using random number for stupid gif randomizer."
+  "this is so stupid" 
+  k = random.randint(0,50)
+  print(k)
+ 
+  if message.author == client.user:
+    return
 
-    if message.content.startswith('$hello'):
-      await message.channel.send('Hello!')
+  if message.content.startswith('$hello'):
+    await message.channel.send('Hello!')
     
-    if message.content.startswith('$cat') and k > 25:
-      await message.channel.send(file=discord.File('neko.gif'))
+  if message.content.startswith('$cat') and k > 25:
+    await message.channel.send(file=discord.File('neko.gif'))
 
-    if message.content.startswith('$cat') and k < 25:
-      await message.channel.send(file=discord.File('neko1.gif'))
+  if message.content.startswith('$game'):
+    msg = await client.wait_for("message")
+     
+  if message.content.startswith('$cat') and k < 25:
+    await message.channel.send(file=discord.File('neko1.gif'))
   
-    if str(message.author) in ["Shakespeare#1494"]:
-      MYid = '<@!888925448954871868>'
-      await message.channel.send('%s Treat me to some fat ass on god' % MYid)
+  if str(message.author) in ["Shakespeare#1494"]:
+    MYid = '<@!888925448954871868>'
+    await message.channel.send('%s Treat me to some fat ass on god' % MYid)
 
-    if message.content.startswith('Reptop: quote') or message.content.startswith('$quote') or message.content.startswith('hithepig: quote') or message.content.startswith('$q'):
-      quote = get_quote()
-      await message.channel.send(quote)
+  if message.content.startswith('Reptop: quote') or message.content.startswith('$quote') or message.content.startswith('hithepig: quote') or message.content.startswith('$q'):
+    quote = get_quote()
+    await message.channel.send(quote)
 
 
 client.run(my_secret)
