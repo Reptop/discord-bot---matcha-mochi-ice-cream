@@ -3,7 +3,7 @@ import os
 import requests
 import json
 import random
-from replit import db  
+from io import StringIO
 
 "so can we talk for min ooohhooo"
 
@@ -12,18 +12,16 @@ my_secret = os.environ['TOKEN']
 
 
 def tenki(): 
-  response = ('api.openweathermap.org/data/2.5/weather?q={Portland}&appid={API key}')
-  json_data = json.loads(response)
-  fin = json_data
-  return(fin)
-
+  response = requests.get('https://api.openweathermap.org/data/2.5/weather?zip=97229,us&appid=f203af71c732fbc42d6ee307a362abf5')
+  json_data = json.dumps(response.text, sort_keys=True, indent=4, separators=(',', ': ')) 
+  data = json_data 
+  return(data) 
 
 def get_quote(): 
   response = requests.get("https://animechan.vercel.app/api/random")
-  json_data = json.loads(response.text)
+  json_data = json.dumps(response.text, sort_keys=True, indent=4, separators=(',', ': ')) 
   quote = json_data
   return(quote)
-
 
 @client.event
 async def on_ready():
@@ -45,9 +43,6 @@ async def on_message(message):
     
   if message.content.startswith('$cat') and k > 25:
     await message.channel.send(file=discord.File('neko.gif'))
-
-  if message.content.startswith('$game'):
-    msg = await client.wait_for("message")
      
   if message.content.startswith('$cat') and k < 25:
     await message.channel.send(file=discord.File('neko1.gif'))
@@ -56,11 +51,17 @@ async def on_message(message):
     MYid = '<@!888925448954871868>'
     await message.channel.send('%s Treat me to some fat ass on god' % MYid)
 
-  if message.content.startswith('Reptop: quote') or message.content.startswith('$quote') or message.content.startswith('hithepig: quote') or message.content.startswith('$q'):
+  if message.content.startswith('Reptop: quote') or message.content.startswith('$quote') or message.content.startswith('hithepig: quote'):
     quote = get_quote()
     await message.channel.send(quote)
 
+  if (message.content.startswith('$weather')):
+    get_weather = tenki()
+    await message.channel.send(get_weather)
+
 
 client.run(my_secret)
+
+
 
 
