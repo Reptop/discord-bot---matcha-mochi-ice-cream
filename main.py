@@ -4,6 +4,7 @@ import requests
 import json
 import random
 import numpy as np
+import datetime
 from matplotlib import pyplot as plt
 "so can we talk for min ooohhooo"
 
@@ -16,11 +17,19 @@ triggers = [
     ]
 
 limit = 2
-x_axis = np.arange(4)
-#y_axis = np.arange(2)
+x_axis = np.arange(2)
+y_axis = np.arange(2)
+
+def addPoint(scat, new_point):
+  old_off = scat.get_offsets()
+  new_off = np.concatenate([old_off,np.array(new_point)])
+  
+  scat.set_offsets(new_off)
+
+  #scat.axes.figure.canvas.draw_idle()
 
 def tenki(): 
-  response = requests.get('https://api.openweathermap.org/data/2.5/weather?zip=97229,us&appid=f203af71c732fbc42d6ee307a362abf5')
+  response = requests.get('https://api.openweathermap.org/data/2.5/weather?zip=97229,us&appid=ID')
   json_data = json.dumps(response.text, sort_keys=True, indent=4, separators=(',', ': ')) 
   data = json_data 
   return(data) 
@@ -31,13 +40,10 @@ def get_quote():
   quote = json_data
   return(quote)
 
-def mental_state(ny):
+def print_mental_state():
 
   #if nx and ny == 0:
     #return
-
-  if ny == 0:
-    return
   
   #os.remove("test.png")
     
@@ -47,19 +53,19 @@ def mental_state(ny):
   ax.set_xlabel('Sanity')  # Add an x-label to the axes.
   ax.set_ylabel('Will To Live')  # Add a y-label to the axes.
 
-  x = np.array(x_axis)
-  y = np.array(y_axis)
 
-  #limit = limit + 1
-  #print("limit: ", limit)
+  x = np.array([1, 3], [2, 6], [3, 7])
 
-  x = np.append(x,limit)
-  y = np.append(y,ny)
+  # limit = limit + 1
+  # print("limit: ", limit)
 
-  print(x)
+ # x = np.append(x,limit)
+ # y = np.append(y,ny)
+
+ #print(x)
   
   
-  ax.plot(x, y);  # Plot some data on the axes.
+ #ax.plot(x, y);  # Plot some data on the axes.
   
 # function to show the plot
   filename =  "test.png"
@@ -81,7 +87,7 @@ async def on_message(message):
   #print(k)
 
   #nx = random.randint(1, 50)
-  ny = random.randint(1, 20)
+  #ny = random.randint(1, 20)
  
   if message.author == client.user:
     return
@@ -110,44 +116,13 @@ async def on_message(message):
   for i in triggers:
     if message.content == i:
       print("hello")
-      mental_state(ny)
-      def mental_state(ny):
+      print_mental_state()
 
-  #if nx and ny == 0:
-    #return
-
-  #os.remove("test.png")
-    
-  fig, ax = plt.subplots()  # Create a figure containing a single axes.
-  
-  plt.title('Mental State :(')
-  ax.set_xlabel('Sanity')  # Add an x-label to the axes.
-  ax.set_ylabel('Will To Live')  # Add a y-label to the axes.
-
-  x = np.array(x_axis)
-  y = np.array(y_axis)
-
-  #limit = limit + 1
-  #print("limit: ", limit)
-
-  x = np.append(x,limit)
-  y = np.append(y,ny)
-
-  print(x)
-  
-  
-  ax.plot(x, y);  # Plot some data on the axes.
-  
-# function to show the plot
-  filename =  "test.png"
-  plt.savefig(filename)
-  image = discord.File(filename)
-  return image
-      
   if (message.content.startswith('$woo')):
-    mental_state(0)
-    await message.channel.send(file=discord.File('test.png'))
-
+    img = print_mental_state()
+    #await message.channel.send(file=discord.File('test.png'))
+    
+    await message.channel.send(file=img)
 client.run(my_secret)
 
 
