@@ -9,9 +9,8 @@ from matplotlib import pyplot as plt
 "so can we talk for min ooohhooo"
 
 
-#TOKEN = 'ODc1MjI4NjY3MjA1MjU5Mzc1.YRSeNw.x63t8Mt1hPm7ssjCnTMrPTDssBw'
 client = discord.Client(intents=discord.Intents.default())
-my_secret = os.environ['ODc1MjI4NjY3MjA1MjU5Mzc1.YRSeNw.x63t8Mt1hPm7ssjCnTMrPTDssBw']
+my_secret = os.environ['TOKEN']
 
 triggers = [
         'im bad', 'i suck', 'i want death',
