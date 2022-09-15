@@ -8,8 +8,10 @@ import datetime
 from matplotlib import pyplot as plt
 "so can we talk for min ooohhooo"
 
-client = discord.Client()
-my_secret = os.environ['TOKEN']
+
+#TOKEN = 'ODc1MjI4NjY3MjA1MjU5Mzc1.YRSeNw.x63t8Mt1hPm7ssjCnTMrPTDssBw'
+client = discord.Client(intents=discord.Intents.default())
+my_secret = os.environ['ODc1MjI4NjY3MjA1MjU5Mzc1.YRSeNw.x63t8Mt1hPm7ssjCnTMrPTDssBw']
 
 triggers = [
         'im bad', 'i suck', 'i want death',
@@ -54,7 +56,7 @@ def print_mental_state():
   ax.set_ylabel('Will To Live')  # Add a y-label to the axes.
 
 
-  x = np.array([1, 3], [2, 6], [3, 7])
+#x = np.array([1, 3], [2, 6], [3, 7])
 
   # limit = limit + 1
   # print("limit: ", limit)
