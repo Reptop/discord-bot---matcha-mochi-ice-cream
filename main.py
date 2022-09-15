@@ -8,6 +8,8 @@ import datetime
 from matplotlib import pyplot as plt
 "so can we talk for min ooohhooo"
 
+"Fixes for next push: Fix the mental state tracker so that each np array point is added continously"
+"And uh yeah thats about it"
 
 client = discord.Client(intents=discord.Intents.default())
 my_secret = os.environ['TOKEN']
